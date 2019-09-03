@@ -3,12 +3,43 @@
 `include "cpu6502.v"
 `include "font_cp437_8x8.v"
 
-// https://www.applefritter.com/replica/chapter7
-// https://github.com/mamedev/mame/blob/master/src/mame/drivers/apple1.cpp
-// https://github.com/jefftranter/6502/blob/master/asm/wozmon/wozmon.s
-// https://www.applefritter.com/files/signetics2513.pdf
-// http://retro.hansotten.nl/uploads/6502docs/signetics2504.pdf
-// http://retro.hansotten.nl/uploads/6502docs/signetics2519.pdf
+/**
+Mango One
+
+A 6502 computer inspired by Steve Wozniak's Apple I design
+
+Memory map:
+
+$0000	$0FFF	RAM
+$A000	$CFFF	Expansion ROM
+$D010	$D013	6821 PIA (keyboard, terminal)
+$E000	$EFFF	Integer BASIC
+$FF00	$FFFF	Woz Monitor, CPU vectors
+
+$D010	Read ASCII character from keyboard.
+        If high bit is set then a key has been pressed.
+        
+$D011	Writing to this address clears the high bit of $D010.
+        The CPU usually does this after reading a key.
+        
+$D012	Writes a character to the terminal.
+        On read, if high bit is set then the display
+        is not ready to receive characters.
+
+MangoMon commands:
+
+R aaaa    - dump memory at $aaaa
+Enter     - dump next 8 bytes
+W aaaa bb - write memory $bb at $aaaa
+G aaaa    - jump to address $aaaa
+
+https://www.applefritter.com/replica/chapter7
+https://github.com/mamedev/mame/blob/master/src/mame/drivers/apple1.cpp
+https://github.com/jefftranter/6502/blob/master/asm/wozmon/wozmon.s
+https://www.applefritter.com/files/signetics2513.pdf
+http://retro.hansotten.nl/uploads/6502docs/signetics2504.pdf
+http://retro.hansotten.nl/uploads/6502docs/signetics2519.pdf
+*/
 
 module signetics_term(clk, reset, hpos, vpos, tready, dot, te, ti);
 
