@@ -11,7 +11,6 @@ The Mango One's memory map is very similar to the Apple I:
 Start | End      | Description
 ------|----------|----------
 $0000 | $0FFF    | RAM
-$A000 | $CFFF    | Expansion ROM
 $D010 | $D013    | 6821 PIA (keyboard, terminal)
 $FF00 | $FFFF    | Monitor ROM, CPU vectors
 
